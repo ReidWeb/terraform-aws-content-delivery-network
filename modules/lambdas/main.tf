@@ -2,8 +2,8 @@ locals {
   underscored_domain = "${replace(var.domain_name, ".", "_")}"
   lambda_base_name =  "cloudFront-${local.underscored_domain}"
   lambda_base_name_with_env = "${local.lambda_base_name}-${var.env}"
-  headers_lambda_name = "cloudFront-${local.lambda_base_name}-headers-${local.underscored_domain}-${var.env}"
-  paths_lambda_name = "cloudFront-${local.lambda_base_name}-paths-${local.underscored_domain}-${var.env}"
+  headers_lambda_name = "${local.lambda_base_name}-headers-${local.underscored_domain}-${var.env}"
+  paths_lambda_name = "${local.lambda_base_name}-paths-${local.underscored_domain}-${var.env}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -14,6 +14,7 @@ module "lambda_iam_role" {
   lambda_base_name_with_env = "${local.lambda_base_name_with_env}"
   paths_lambda_name = "${local.paths_lambda_name}"
   headers_lambda_name = "${local.headers_lambda_name}"
+  provision_lambdas = "${var.provision_lambdas}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -27,7 +28,12 @@ resource "aws_lambda_function" "headersLambda" {
   runtime = "nodejs8.10"
   description = "Lambda function to process events when CloudFront receives a response from the origin to add headers"
 
+  publish = true
+
   role = "${module.lambda_iam_role.role_arn}"
+
+  # If provision_lambdas is false, will get run 0 times
+  count = "${var.provision_lambdas != "false" ? 1 : 0}"
 
   tags = {
     Name        = "Headers Lambda"
@@ -49,6 +55,11 @@ resource "aws_lambda_function" "pathsLambda" {
 
   role = "${module.lambda_iam_role.role_arn}"
 
+  publish = true
+
+  # If provision_lambdas is false, will get run 0 times
+  count = "${var.provision_lambdas != "false" ? 1 : 0}"
+
   tags = {
     Name        = "Paths Lambda"
     Project     = "${var.domain_name}"
@@ -62,12 +73,19 @@ resource "aws_lambda_function" "pathsLambda" {
 resource "aws_lambda_alias" "headersLambdaAlias" {
   name             = "STABLE"
   function_name    = "${aws_lambda_function.headersLambda.arn}"
-  function_version = "1"
+  function_version = "${aws_lambda_function.headersLambda.version}"
+
+
+  # If provision_lambdas is false, will get run 0 times
+  count = "${var.provision_lambdas != "false" ? 1 : 0}"
 }
 
 resource "aws_lambda_alias" "pathsLambdaAlias" {
   name             = "STABLE"
   function_name    = "${aws_lambda_function.pathsLambda.arn}"
-  function_version = "1"
+  function_version = "${aws_lambda_function.pathsLambda.version}"
+
+  # If provision_lambdas is false, will get run 0 times
+  count = "${var.provision_lambdas != "false" ? 1 : 0}"
 }
 

@@ -8,4 +8,5 @@ variable "env" {
 
 variable "domain_name" {
   description = "Primary domain for this distribution."
+  default = ""
 }

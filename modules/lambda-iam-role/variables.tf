@@ -23,3 +23,7 @@ variable "domain_name" {
   default = "cf-dist"
 }
 
+variable "provision_lambdas" {
+  description = "Whether to provision lambdas"
+  default = "true"
+}

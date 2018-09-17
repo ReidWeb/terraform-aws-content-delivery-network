@@ -27,6 +27,9 @@ resource "aws_iam_role" "main" {
   name = "${var.lambda_base_name_with_env}-${data.aws_region.current.name}-lambdaRole"
   description = "Role permitting Lambda functions to be invoked from Lambda or Lambda@Edge"
   assume_role_policy = "${data.aws_iam_policy_document.lambdaPolicy.json}"
+
+  # If provision_lambdas is false, will get run 0 times
+  count = "${var.provision_lambdas != "false" ? 1 : 0}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -38,7 +41,7 @@ data "template_file" "log_policy_template" {
   vars {
     region = "${data.aws_region.current.name}"
     account_id = "${data.aws_caller_identity.current.account_id}"
-    headers_lamda_name = "${var.headers_lambda_name}"
+    headers_lambda_name = "${var.headers_lambda_name}"
     paths_lambda_name = "${var.paths_lambda_name}"
   }
 }
@@ -52,6 +55,9 @@ resource "aws_iam_policy" "log_policy" {
   description = "Policy permitting ${var.domain_name} lambdas to log to CloudWatch"
 
   policy = "${data.template_file.log_policy_template.rendered}"
+
+  # If provision_lambdas is false, will get run 0 times
+  count = "${var.provision_lambdas != "false" ? 1 : 0}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -60,5 +66,8 @@ resource "aws_iam_policy" "log_policy" {
 resource "aws_iam_role_policy_attachment" "logging-attach" {
   role       = "${aws_iam_role.main.name}"
   policy_arn = "${aws_iam_policy.log_policy.arn}"
+
+  # If provision_lambdas is false, will get run 0 times
+  count = "${var.provision_lambdas != "false" ? 1 : 0}"
 }
 
