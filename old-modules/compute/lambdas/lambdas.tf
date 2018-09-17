@@ -2,55 +2,6 @@ variable "env" {}
 variable "domain_name" {}
 variable "region" {}
 
-locals {
-  underscored_domain = "${replace(var.domain_name, ".", "_")}"
-  lambda_base_name = "cloudFront-${local.underscored_domain}-${var.env}"
-}
-
-data "aws_caller_identity" "current" {}
-
-data "aws_iam_policy_document" "lambdaPolicy" {
-  statement {
-    actions = ["sts:AssumeRole"]
-    principals {
-      type = "Service"
-      identifiers = [
-        "lambda.amazonaws.com",
-        "edgelambda.amazonaws.com"
-      ]
-    }
-  }
-}
-
-
-resource "aws_iam_role" "main" {
-  name = "${local.lambda_base_name}-${var.region}-lambdaRole"
-  assume_role_policy = "${data.aws_iam_policy_document.lambdaPolicy.json}"
-}
-
-data "template_file" "log_policy_template" {
-  template = "${file("${path.module}/logging_policy.json")}"
-
-  vars {
-    region = "${var.region}"
-    account_id = "${data.aws_caller_identity.current.account_id}"
-    lambda_name = "${local.lambda_base_name}"
-  }
-}
-
-resource "aws_iam_policy" "log_policy" {
-  name        = "${local.lambda_base_name}-log-pol"
-  path        = "/"
-  description = "Policy permitting lambdas to log to CloudWatch"
-
-  policy = "${data.template_file.log_policy_template.rendered}"
-}
-
-resource "aws_iam_role_policy_attachment" "logging-attach" {
-  role       = "${aws_iam_role.main.name}"
-  policy_arn = "${aws_iam_policy.log_policy.arn}"
-}
-
 resource "aws_lambda_function" "headersLambda" {
   function_name = "headers-${local.lambda_base_name}"
 

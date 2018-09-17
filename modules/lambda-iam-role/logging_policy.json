@@ -1,0 +1,35 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "logs:CreateLogStream"
+      ],
+      "Resource": [
+        "arn:aws:logs:${region}:${account_id}:log-group:/aws/lambda/${paths_lambda_name}:*",
+        "arn:aws:logs:${region}:${account_id}:log-group:/aws/lambda/${headers_lambda_name}:*"
+      ],
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "logs:PutLogEvents"
+      ],
+      "Resource": [
+        "arn:aws:logs:${region}:${account_id}:log-group:/aws/lambda/${paths_lambda_name}:*:*",
+        "arn:aws:logs:${region}:${account_id}:log-group:/aws/lambda/${headers_lambda_name}:*:*"
+      ],
+      "Effect": "Allow"
+    },
+    {
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "logs:DescribeLogStreams"
+      ],
+      "Resource": "arn:aws:logs:*:*:*",
+      "Effect": "Allow"
+    }
+  ]
+}
