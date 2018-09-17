@@ -29,6 +29,12 @@ resource "aws_lambda_function" "headersLambda" {
   description = "Lambda function to process events when CloudFront receives a response from the origin to add headers"
 
   role = "${module.lambda_iam_role.role_arn}"
+
+  tags = {
+    Name        = "Headers Lambda"
+    Project     = "${var.domain_name}"
+    Environment = "${var.env}"
+  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -43,6 +49,12 @@ resource "aws_lambda_function" "pathsLambda" {
   description = "Lambda function to process events when CloudFront requests a response from Cloudfront in order to redirect"
 
   role = "${module.lambda_iam_role.role_arn}"
+
+  tags = {
+    Name        = "Paths Lambda"
+    Project     = "${var.domain_name}"
+    Environment = "${var.env}"
+  }
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

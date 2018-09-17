@@ -16,9 +16,11 @@ module "lambdas" {
   # If provision_lambdas is false, will get run 0 times
   count = "${var.provision_lambdas != "false" ? 1 : 0}"
 
-  source = "old-modules/lambdas"
+  source = "./modules/lambdas"
 
-
+  region = "${var.region}"
+  domain_name = "${var.domain_name}"
+  env = "${var.env}"
 }
 
 //module "compute" {
