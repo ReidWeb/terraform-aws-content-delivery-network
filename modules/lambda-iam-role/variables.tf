@@ -1,10 +1,9 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# REQUIRED INPUTS
+# ---------------------------------------------------------------------------------------------------------------------
+
 variable "region" {
   description = "AWS region in which Lambdas will be deployed - used to appropriately name policies and roles."
-}
-
-variable "domain_name" {
-  description = "Primary domain for this distribution."
-  default = "cf-dist"
 }
 
 variable "lambda_base_name_with_env" {
@@ -18,3 +17,13 @@ variable "headers_lambda_name" {
 variable "paths_lambda_name" {
   description = "Name for paths lambda"
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# OPTIONAL INPUTS
+# ---------------------------------------------------------------------------------------------------------------------
+
+variable "domain_name" {
+  description = "Primary domain for this distribution."
+  default = "cf-dist"
+}
+

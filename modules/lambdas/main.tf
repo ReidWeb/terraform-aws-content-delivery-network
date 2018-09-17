@@ -11,7 +11,7 @@ locals {
 # ---------------------------------------------------------------------------------------------------------------------
 module "lambda_iam_role" {
   source = "../lambda-iam-role"
-  region = "${var.region}"
+  region = "us-east-1"
   lambda_base_name_with_env = "${local.lambda_base_name_with_env}"
   paths_lambda_name = "${local.paths_lambda_name}"
   headers_lambda_name = "${local.headers_lambda_name}"

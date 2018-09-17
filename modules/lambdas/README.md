@@ -1,7 +1,10 @@
-# Lambda IAM Role
+# Lambdas
+
 This folder contains a [Terraform](https://www.terraform.io/) module that creates the Lambda functions. 
 
 Normally, you'd get this Role by default if you're using the [content-delivery-network module](https://github.com/reidweb/terraform-aws-content-delivery-network/tree/master), 
+
+## Usage
 
 You can use this module as follows
 
