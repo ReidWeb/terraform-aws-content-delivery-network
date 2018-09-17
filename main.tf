@@ -1,11 +1,3 @@
-variable "region" { default = "us-east-1" }
-variable "env" {}
-variable "domain_name" {}
-variable "additional_domains" {
-  type = "list"
-}
-variable "route53_zone_name" {}
-
 module "compute" {
   source = "./modules/compute"
 
