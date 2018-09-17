@@ -12,7 +12,6 @@ You can use this module as follows
 module "iam_roles" {
   source = "git::git@github.com:reidweb/terraform-aws-content-delivery-network.git//modules/lambdas"
 
-  region = "us-east-1"
   domain_name = "foo.example.com"
   env = "dev"
 }

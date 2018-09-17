@@ -1,5 +1,6 @@
 # Load in the AWS account info, so we can use the account ID in file templates
 data "aws_caller_identity" "current" {}
+data "aws_region" "current" {}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE INVOCATION POLICY
@@ -23,7 +24,7 @@ data "aws_iam_policy_document" "lambdaPolicy" {
 # We now need to create a role that can be used with the above policy
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_iam_role" "main" {
-  name = "${var.lambda_base_name_with_env}-${var.region}-lambdaRole"
+  name = "${var.lambda_base_name_with_env}-${data.aws_region.current}-lambdaRole"
   description = "Role permitting Lambda functions to be invoked from Lambda or Lambda@Edge"
   assume_role_policy = "${data.aws_iam_policy_document.lambdaPolicy.json}"
 }
@@ -35,7 +36,7 @@ data "template_file" "log_policy_template" {
   template = "${file("${path.module}/logging_policy.json")}"
 
   vars {
-    region = "${var.region}"
+    region = "${data.aws_region.current}"
     account_id = "${data.aws_caller_identity.current.account_id}"
     headers_lamda_name = "${var.headers_lambda_name}"
     paths_lambda_name = "${var.paths_lambda_name}"

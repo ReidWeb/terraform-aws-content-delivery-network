@@ -16,7 +16,6 @@ This module can be used as follows
 module "content-delivery-network" {
   source  = "ReidWeb/content-delivery-network/aws"
 
-  region = "us-east-1"
   env = "dev"
   domain_name = "mysite.dev.aws.example.com"
   additional_domains = ["www.mysite.dev.aws.example.com", "blog.dev.aws.example.com"]
@@ -24,11 +23,12 @@ module "content-delivery-network" {
 }
 ```
 
+**Note that Lambda@Edge is currently only supported in us-east-1**
+
 ### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-------:|:--------:|
-|region | AWS region in which to deploy the S3 bucket (and Lambdas if requested) | string | - | yes |
 |env | Deployment environment of application, will be included in resource names, and tags | string | - | yes |
 |domain_name | Primary domain for this distribution. | string | `""` | no |
 |additional_domains | Additional domains for this distribution. | list | `[]` | no |

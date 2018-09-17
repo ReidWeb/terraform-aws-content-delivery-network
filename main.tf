@@ -18,7 +18,6 @@ module "lambdas" {
 
   source = "./modules/lambdas"
 
-  region = "${var.region}"
   domain_name = "${var.domain_name}"
   env = "${var.env}"
 }
