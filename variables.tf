@@ -1,9 +1,18 @@
+# ---------------------------------------------------------------------------------------------------------------------
+# REQUIRED INPUTS
+# ---------------------------------------------------------------------------------------------------------------------
+
 variable "region" {
   description = "AWS region in which to deploy the S3 bucket (and Lambdas if requested). Note that CloudFront Distribution & IAM roles/policies are globally provisioned. Certificates for CloudFront distributions can only be created in us-east-1, as such the certificate will be created there if required"
 }
 variable "env" {
   description = "Deployment environment of application, will be included in resource names, and tags. e.g. 'dev'"
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# OPTIONAL INPUTS
+# ---------------------------------------------------------------------------------------------------------------------
+
 variable "domain_name" {
   description = "Primary domain for this distribution. Be aware that A & AAAA records will be created in Route53 for this with target of your CloudFront distribution. If not provided, the default CloudFront domain will be used."
   default = ""

@@ -23,13 +23,6 @@ module "lambdas" {
   env = "${var.env}"
 }
 
-//module "compute" {
-//  source = "./modules/compute"
-//
-//  domain_name = "${var.domain_name}"
-//  env = "${var.env}"
-//  region = "${var.region}"
-//}
 //
 //module "storage" {
 //  source = "./modules/storage"

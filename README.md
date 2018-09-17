@@ -8,7 +8,43 @@ This module can create your CDN in a manner compliant with best practices for fr
 
 ![CDN Architecture](https://github.com/ReidWeb/terraform-aws-content-delivery-network/blob/master/_docs/arch.png?raw=true)
 
-## What's a module?
+## Usage
+
+This module can be used as follows
+
+```hcl
+module "content-delivery-network" {
+  source  = "ReidWeb/content-delivery-network/aws"
+
+  region = "us-east-1"
+  env = "dev"
+  domain_name = "mysite.dev.aws.example.com"
+  additional_domains = ["www.mysite.dev.aws.example.com", "blog.dev.aws.example.com"]
+  route53_zone_name = "dev.aws.example.com"
+}
+```
+
+### Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|:----:|:-------:|:--------:|
+|region | AWS region in which to deploy the S3 bucket (and Lambdas if requested) | string | - | yes |
+|env | Deployment environment of application, will be included in resource names, and tags | string | - | yes |
+|domain_name | Primary domain for this distribution. | string | `""` | no |
+|additional_domains | Additional domains for this distribution. | list | `[]` | no |
+|route53_zone_name | The name of your Route 53 zone in which to create the records | string |`""` | no |
+|provision_lambdas |  Whether to provision the custom event Lambdas, or use a basic CloudFront distribution | string | `"true"` | no |
+
+Be sure to read the [inputs](https://registry.terraform.io/modules/ReidWeb/content-delivery-network/aws?tab=inputs) documentation before use - as omission of certain parameters will lead to behaviour changing.
+
+### Outputs
+
+| Name | Description |
+|------|-------------|
+
+## FAQ
+
+### What's a module?
 
 A Module is a canonical, reusable, best-practices definition for how to run a single piece of infrastructure, such 
 as a database or server cluster. Each Module is created using [Terraform](https://www.terraform.io/), and
@@ -20,7 +56,7 @@ existing code that has been proven in production. And instead of maintaining all
 you can leverage the work of the Module community to pick up infrastructure improvements through
 a version number bump.
 
-## Code included in this module:
+### What code is included in this module:
 
 * [lambda-iam-role](https://github.com/ReidWeb/terraform-aws-content-delivery-network/tree/master/modules/lambda-iam-policies): This module creates the necessary [IAM](https://aws.amazon.com/iam/) roles and policies for the Lambda functions to log to [CloudWatch](https://aws.amazon.com/cloudwatch/) and to be invoked as part of the [CloudFront](https://aws.amazon.com/cloudfront/) distribution's event sequence using [Lambda@Edge](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html).
 * [lambdas](https://github.com/ReidWeb/terraform-aws-content-delivery-network/tree/master/modules/lambdas): This module provisions the [Lambda functions](https://aws.amazon.com/lambda/) for handling events from CloudFront via Lambda@Edge.
@@ -29,11 +65,11 @@ a version number bump.
 * [cloudfront-distribution](https://github.com/ReidWeb/terraform-aws-content-delivery-network/tree/master/modules/cloudfront-distribution): This module creates the [Amazon CloudFront](https://aws.amazon.com/cloudfront/) 'distribution' from which your resources will be accessed, using the user specified domains when provided.
 * [route53-records](https://github.com/ReidWeb/terraform-aws-content-delivery-network/tree/master/modules/route53-records): This module creates the [Amazon Route 53](https://aws.amazon.com/route53/) alias records for the domains specified targeting the CloudFront distribution.
 
-# How do I contribute to this Module?
+### How do I contribute to this Module?
 
 Contributions are very welcome! Check out the [Contribution Guidelines](https://github.com/ReidWeb/terraform-aws-content-delivery-network/tree/master/CONTRIBUTING.md) for instructions.
 
-## How is this Module versioned?
+### How is this Module versioned?
 
 This Module follows the principles of [Semantic Versioning](http://semver.org/). You can find each new release, 
 along with the changelog, in the [Releases Page](../../releases). 
@@ -41,6 +77,10 @@ along with the changelog, in the [Releases Page](../../releases).
 During initial development, the major version will be 0 (e.g., `0.x.y`), which indicates the code does not yet have a 
 stable API. Once we hit `1.0.0`, we will make every effort to maintain a backwards compatible API and use the MAJOR, 
 MINOR, and PATCH versions on each release to indicate any incompatibilities. 
+
+## Trademarks
+
+All other trademarks referenced herein are the property of their respective owners.
 
 ## License
 
