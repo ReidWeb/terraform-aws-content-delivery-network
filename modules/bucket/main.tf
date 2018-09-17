@@ -1,5 +1,6 @@
-variable "env" { }
-variable "domain_name" {}
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE BUCKET
+# ---------------------------------------------------------------------------------------------------------------------
 
 resource "aws_s3_bucket" "private_bucket" {
   bucket = "${var.domain_name}"
@@ -15,5 +16,3 @@ resource "aws_s3_bucket" "private_bucket" {
   }
 }
 
-output "bucket_id" { value = "${aws_s3_bucket.private_bucket.id}" }
-output "bucket_regional_domain_name" { value = "${aws_s3_bucket.private_bucket.bucket_regional_domain_name}" }
