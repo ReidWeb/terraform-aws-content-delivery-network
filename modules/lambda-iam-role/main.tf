@@ -64,8 +64,8 @@ resource "aws_iam_policy" "log_policy" {
 # ATTACH THE ABOVE POLICY TO ROLE WE CREATED
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "logging-attach" {
-  role       = "${aws_iam_role.main.name}"
-  policy_arn = "${aws_iam_policy.log_policy.arn}"
+  role       = "${aws_iam_role.main.0.name}"
+  policy_arn = "${aws_iam_policy.log_policy.0.arn}"
 
   # If provision_lambdas is false, will get run 0 times
   count = "${var.provision_lambdas != "false" ? 1 : 0}"
