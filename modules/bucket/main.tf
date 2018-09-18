@@ -36,5 +36,8 @@ resource "aws_s3_bucket" "bucket_without_www" {
     Environment = "${var.env}"
   }
 
+  website = {
+    index_document = "index.html"
+  }
   # We will apply website props later!
 }
