@@ -8,6 +8,7 @@ terraform {
   required_version = ">= 0.9.3, != 0.9.5"
 }
 
+data "aws_region" "current" {}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE LAMBDAS (IF REQUIRED)
@@ -17,7 +18,7 @@ module "lambdas" {
 
   domain_name = "${var.domain_name}"
   env = "${var.env}"
-  provision_lambdas = "${var.provision_lambdas}"
+  provision_lambdas = "${data.aws_region.current.name == "us-east-1" ? var.provision_lambdas : "false"}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
