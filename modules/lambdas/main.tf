@@ -15,6 +15,8 @@ module "lambda_iam_role" {
   paths_lambda_name = "${local.paths_lambda_name}"
   headers_lambda_name = "${local.headers_lambda_name}"
   provision_lambdas = "${var.provision_lambdas}"
+  env = "${var.env}"
+  domain_name = "${var.domain_name}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

@@ -14,6 +14,10 @@ variable "paths_lambda_name" {
   description = "Name for paths lambda"
 }
 
+variable "env" {
+  description = "Deployment environment of application, will be included in resource names, and tags. e.g. 'dev'"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL INPUTS
 # ---------------------------------------------------------------------------------------------------------------------
