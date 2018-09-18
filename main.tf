@@ -41,6 +41,22 @@ module "certificate" {
   env = "${var.env}"
   additional_domains = "${var.additional_domains}"
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE DISTRIBUTION
+# ---------------------------------------------------------------------------------------------------------------------
+module "cloudfront_distribution" {
+  source = "./modules/cloudfront-distribution"
+
+  domain_name = "${var.domain_name}"
+  bucket_regional_domain_name = "${module.bucket.bucket_regional_domain_name}"
+  env = "${var.env}"
+  additional_domains = "${var.additional_domains}"
+  cert_arn = "${module.certificate.cert_arn}"
+  headers_lambda_qualified_arn = "${module.lambdas.headers_lambda_qualified_arn}"
+  paths_lambda_qualified_arn = "${module.lambdas.paths_lambda_qualified_arn}"
+  provision_lambdas = "${var.provision_lambdas}"
+}
 //
 //module "networking" {
 //  source = "./modules/networking"
