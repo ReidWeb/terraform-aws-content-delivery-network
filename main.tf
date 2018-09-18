@@ -10,7 +10,7 @@ terraform {
 
 
 # ---------------------------------------------------------------------------------------------------------------------
-# CREATE LAMBDAS
+# CREATE LAMBDAS (IF REQUIRED)
 # ---------------------------------------------------------------------------------------------------------------------
 module "lambdas" {
   source = "./modules/lambdas"
@@ -28,6 +28,17 @@ module "bucket" {
 
   domain_name = "${var.domain_name}"
   env = "${var.env}"
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE CERTIFICATE (IF REQUIRED)
+# ---------------------------------------------------------------------------------------------------------------------
+module "certificate" {
+  source = "./modules/certificate"
+
+  domain_name = "${var.domain_name}"
+  env = "${var.env}"
+  additional_domains = "${var.additional_domains}"
 }
 //
 //module "storage" {

@@ -101,4 +101,7 @@ override.tf.json
 *_override.tf.json
 
 
+env
+env/*
+.terraform
 # End of https://www.gitignore.io/api/intellij,terraform
