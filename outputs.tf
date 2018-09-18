@@ -22,3 +22,13 @@ output "bucket_regional_domain_name" {
   value = "${module.bucket.bucket_regional_domain_name}"
   description = "Regional domain name for Origin S3 Bucket"
 }
+
+output "certificate_id" {
+  value = "${module.certificate.cert_id}"
+  description = "ID of certfificate provisioned in ACM"
+}
+
+output "certificate_arn" {
+  value = "${module.certificate.cert_arn}"
+  description = "ARN of certificate provisioned in ACM"
+}
