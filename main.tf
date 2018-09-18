@@ -42,13 +42,6 @@ module "certificate" {
   additional_domains = "${var.additional_domains}"
 }
 //
-//module "storage" {
-//  source = "./modules/storage"
-//
-//  domain_name = "${var.domain_name}"
-//  env = "${var.env}"
-//}
-//
 //module "networking" {
 //  source = "./modules/networking"
 //

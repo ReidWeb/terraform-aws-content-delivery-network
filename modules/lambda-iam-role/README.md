@@ -9,7 +9,6 @@ You can use this module as follows
 module "iam_roles" {
   source = "git::git@github.com:reidweb/terraform-aws-content-delivery-network.git//modules/lambda-iam-policies"
 
-  region = "${var.region}"
   lambda_base_name_with_env = "dev"
   paths_lambda_name = "myPathsLambda"
   headers_lambda_name = "myHeadersLambda"
