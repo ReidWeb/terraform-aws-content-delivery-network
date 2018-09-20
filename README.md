@@ -20,6 +20,10 @@ module "content-delivery-network" {
   domain_name = "mysite.dev.aws.example.com"
   additional_domains = ["www.mysite.dev.aws.example.com", "blog.dev.aws.example.com"]
   route53_zone_name = "dev.aws.example.com"
+  region                  = "eu-west-1"
+  shared_credentials_file = "/Users/yourUser/.aws/credentials"
+  profile                 = "dev-profile"
+  env                     = "Dev"
 }
 ```
 
