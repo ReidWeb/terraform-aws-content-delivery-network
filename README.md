@@ -29,11 +29,14 @@ module "content-delivery-network" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-------:|:--------:|
-|env | Deployment environment of application, will be included in resource names, and tags | string | - | yes |
-|domain_name | Primary domain for this distribution. | string | `""` | no |
-|additional_domains | Additional domains for this distribution. | list | `[]` | no |
-|route53_zone_name | The name of your Route 53 zone in which to create the records | string |`""` | no |
-|provision_lambdas |  Whether to provision the custom event Lambdas, or use a basic CloudFront distribution | string | `"true"` | no |
+|`env` | Deployment environment of application, will be included in resource names, and tags | string | - | yes |
+|`profile`| Profile to use - required because we have to do some fiddling with the provider object to create certs in the right region. | string | - | yes |
+|`shared_credentials_file` | Shared credentials file to use - required because we have to do some fiddling with the provider object to create certs in the right region. | string | - | yes |
+|`region` | Shared credentials file to use - required because we have to do some fiddling with the provider object to create certs in the right region. | string | `us-east-1` | no
+|`domain_name` | Primary domain for this distribution. | string | `""` | no |
+|`additional_domains` | Additional domains for this distribution. | list | `[]` | no |
+|`route53_zone_name` | The name of your Route 53 zone in which to create the records | string |`""` | no |
+|`provision_lambdas` |  Whether to provision the custom event Lambdas, or use a basic CloudFront distribution | string | `"true"` | no |
 
 Be sure to read the [inputs](https://registry.terraform.io/modules/ReidWeb/content-delivery-network/aws?tab=inputs) documentation before use - as omission of certain parameters will lead to behaviour changing.
 
@@ -41,6 +44,16 @@ Be sure to read the [inputs](https://registry.terraform.io/modules/ReidWeb/conte
 
 | Name | Description |
 |------|-------------|
+|`headers_lambda_qualified_arn`| Qualified ARN of headers Lambda |
+|`paths_lambda_qualified_arn`| |
+|`lambda_role_arn`| ARN of role assigned to Lambdas |
+|`bucket_id`| ID for Origin S3 Bucket |
+|`bucket_domain_name`| Domain name for Origin S3 Bucket |
+|`certificate_id`| ID of certfificate provisioned in ACM |
+|`certificate_arn`| ARN of certificate provisioned in ACM |
+|`cloudfront_dist_zone_id`| Zone ID of CloudFront Distribution |
+|`cloudfront_domain`| .cloudfront.net domain of Distribution |
+|`cloudfront_origin_iam_arn`| CloudFront Origin Acess Identity |
 
 ## FAQ
 
