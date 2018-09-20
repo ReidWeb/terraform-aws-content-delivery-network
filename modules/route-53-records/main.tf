@@ -1,5 +1,6 @@
 locals {
-  all_domains = ["${var.domain_name}","${var.additional_domains}"]
+  all_domains_uncompact = ["${var.domain_name}","${var.additional_domains}"]
+  all_domains = "${compact(local.all_domains_uncompact)}"
 }
 
 data "aws_route53_zone" "zone" {
@@ -18,7 +19,7 @@ resource "aws_route53_record" "a" {
     evaluate_target_health = false
   }
 
-  count      = "${length(var.additional_domains)}"
+  count      = "${length(local.all_domains)}"
 }
 
 resource "aws_route53_record" "aaaa" {
