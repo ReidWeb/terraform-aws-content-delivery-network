@@ -2,8 +2,8 @@ locals {
   underscored_domain = "${replace(var.domain_name, ".", "_")}"
   lambda_base_name =  "cloudFront-${local.underscored_domain}"
   lambda_base_name_with_env = "${local.lambda_base_name}-${var.env}"
-  headers_lambda_name = "${local.lambda_base_name}-headers-${local.underscored_domain}-${var.env}"
-  paths_lambda_name = "${local.lambda_base_name}-paths-${local.underscored_domain}-${var.env}"
+  headers_lambda_name = "${local.lambda_base_name}-headers-${var.env}"
+  paths_lambda_name = "${local.lambda_base_name}-paths-${var.env}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
