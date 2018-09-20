@@ -5,11 +5,12 @@ locals {
 
 data "aws_route53_zone" "zone" {
   name = "${var.route53_zone_name}"
+  count      = "${length(var.route53_zone_name)}"
 }
 
 
 resource "aws_route53_record" "a" {
-  zone_id = "${data.aws_route53_zone.zone.zone_id}"
+  zone_id = "${data.aws_route53_zone.zone.0.zone_id}"
   name    = "${element(var.additional_domains,count.index)}"
   type    = "A"
 
@@ -23,7 +24,7 @@ resource "aws_route53_record" "a" {
 }
 
 resource "aws_route53_record" "aaaa" {
-  zone_id = "${data.aws_route53_zone.zone.zone_id}"
+  zone_id = "${data.aws_route53_zone.zone.0.zone_id}"
   name    = "${element(local.all_domains,count.index)}"
   type    = "AAAA"
 
