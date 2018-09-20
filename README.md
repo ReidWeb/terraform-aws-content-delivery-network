@@ -63,6 +63,7 @@ a version number bump.
 * [certificate](https://github.com/ReidWeb/terraform-aws-content-delivery-network/tree/master/modules/certificate): This module provisions a certificate for the domains specified by the user using [Amazon Certificate Manager (ACM)](https://aws.amazon.com/certificate-manager/).
 * [bucket](https://github.com/ReidWeb/terraform-aws-content-delivery-network/tree/master/modules/bucket): This module provisions the [Amazon S3](https://aws.amazon.com/s3/) Bucket that will be used as the 'origin' for the CDN, along with the necessary policy that permits the CloudFront distribution to serve objects from it.
 * [cloudfront-distribution](https://github.com/ReidWeb/terraform-aws-content-delivery-network/tree/master/modules/cloudfront-distribution): This module creates the [Amazon CloudFront](https://aws.amazon.com/cloudfront/) 'distribution' from which your resources will be accessed, using the user specified domains when provided.
+* [bucket-iam-policy](https://github.com/ReidWeb/terraform-aws-content-delivery-network/tree/master/modules/bucket-iam-policy): This module creates the IAM policy that allows the CloudFront Origin to access the S3 bucket.
 * [route53-records](https://github.com/ReidWeb/terraform-aws-content-delivery-network/tree/master/modules/route53-records): This module creates the [Amazon Route 53](https://aws.amazon.com/route53/) alias records for the domains specified targeting the CloudFront distribution.
 
 ### How do I contribute to this Module?
