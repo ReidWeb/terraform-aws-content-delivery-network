@@ -57,6 +57,18 @@ module "cloudfront_distribution" {
   paths_lambda_qualified_arn = "${module.lambdas.paths_lambda_qualified_arn}"
   provision_lambdas = "${var.provision_lambdas}"
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# APPLY POLICY TO BUCKET PERMITTING ACCESS FROM CLOUDFRONT DISTRIBUTION
+# ---------------------------------------------------------------------------------------------------------------------
+module "bucket_iam_policy" {
+  source = "./modules/bucket-iam-policy"
+
+  bucket_arn = "${module.bucket.bucket_arn}"
+  bucket_id = "${module.bucket.bucket_id}"
+  cloudfront_origin_iam_arn = "${module.cloudfront_distribution.cloudfront_origin_iam_arn}"
+}
+
 //
 //module "networking" {
 //  source = "./modules/networking"
