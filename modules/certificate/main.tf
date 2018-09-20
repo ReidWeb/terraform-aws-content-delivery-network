@@ -31,6 +31,5 @@ resource "aws_acm_certificate_validation" "certificate" {
   count = "${var.domain_name != "" ? 1 : 0}"
 
   certificate_arn = "${aws_acm_certificate.certificate.0.arn}"
-  validation_record_fqdns = ["${var.domain_name}","${var.additional_domains}"]
 }
 
