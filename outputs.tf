@@ -32,3 +32,18 @@ output "certificate_arn" {
   value = "${module.certificate.cert_arn}"
   description = "ARN of certificate provisioned in ACM"
 }
+
+output "cloudfront_dist_zone_id" {
+  value = "${module.cloudfront_distribution.cloudfront_dist_zone_id}"
+  description = "Zone ID of CloudFront Distribution"
+}
+
+output "cloudfront_domain" {
+  value = "${module.cloudfront_distribution.cloudfront_domain}"
+  description = ".cloudfront.net domain of Distribution"
+}
+
+output "cloudfront_origin_iam_arn" {
+  value = "${module.cloudfront_distribution.cloudfront_origin_iam_arn}"
+  description = "CloudFront Origin Acess Identity"
+}
