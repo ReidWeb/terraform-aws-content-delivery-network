@@ -30,17 +30,17 @@ output "bucket_arn" {
   description = "ARN for Origin S3 Bucket"
 }
 
-output "bucket_regional_domain_name" {
+output "bucket_domain_name" {
   value = "${element(
                       concat(
                         compact(
                                 concat(
-                                        aws_s3_bucket.bucket_with_www.*.bucket_regional_domain_name,
-                                        aws_s3_bucket.bucket_without_www.*.bucket_regional_domain_name
+                                        aws_s3_bucket.bucket_with_www.*.bucket_domain_name,
+                                        aws_s3_bucket.bucket_without_www.*.bucket_domain_name
                                 )
                         ),
                         list("")
                       ),
                       0)}"
-  description = "Regional domain name for Origin S3 Bucket"
+  description = "Domain name for Origin S3 Bucket"
 }

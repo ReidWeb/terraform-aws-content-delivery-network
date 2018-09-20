@@ -18,7 +18,7 @@ resource "aws_cloudfront_distribution" "dist_with_domain_and_lambdas" {
     // redirect traffic from the root domain to the www domain, that is from
     // runatlantis.io to www.runatlantis.io.
     // Here we're using our S3 bucket's URL!
-    domain_name = "${var.bucket_regional_domain_name}"
+    domain_name = "${var.bucket_domain_name}"
     // This can be any name to identify this origin.
     origin_id   = "S3-${var.domain_name}"
 
@@ -103,7 +103,7 @@ resource "aws_cloudfront_distribution" "dist_with_lambdas_with_no_custom_domain"
     // redirect traffic from the root domain to the www domain, that is from
     // runatlantis.io to www.runatlantis.io.
     // Here we're using our S3 bucket's URL!
-    domain_name = "${var.bucket_regional_domain_name}"
+    domain_name = "${var.bucket_domain_name}"
     // This can be any name to identify this origin.
     origin_id   = "S3-origin"
 
@@ -183,7 +183,7 @@ resource "aws_cloudfront_distribution" "dist_with_custom_domain_with_no_lambdas"
     // redirect traffic from the root domain to the www domain, that is from
     // runatlantis.io to www.runatlantis.io.
     // Here we're using our S3 bucket's URL!
-    domain_name = "${var.bucket_regional_domain_name}"
+    domain_name = "${var.bucket_domain_name}"
     // This can be any name to identify this origin.
     origin_id   = "S3-${var.domain_name}"
 
@@ -258,7 +258,7 @@ resource "aws_cloudfront_distribution" "dist_with_no_custom_domain_with_no_lambd
     // redirect traffic from the root domain to the www domain, that is from
     // runatlantis.io to www.runatlantis.io.
     // Here we're using our S3 bucket's URL!
-    domain_name = "${var.bucket_regional_domain_name}"
+    domain_name = "${var.bucket_domain_name}"
     // This can be any name to identify this origin.
     origin_id   = "S3-origin"
 

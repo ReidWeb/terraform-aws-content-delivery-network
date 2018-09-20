@@ -18,9 +18,9 @@ output "bucket_id" {
   description = "ID for Origin S3 Bucket"
 }
 
-output "bucket_regional_domain_name" {
-  value = "${module.bucket.bucket_regional_domain_name}"
-  description = "Regional domain name for Origin S3 Bucket"
+output "bucket_domain_name" {
+  value = "${module.bucket.bucket_domain_name}"
+  description = "Domain name for Origin S3 Bucket"
 }
 
 output "certificate_id" {

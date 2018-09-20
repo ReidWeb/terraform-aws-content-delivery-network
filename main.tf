@@ -56,7 +56,7 @@ module "cloudfront_distribution" {
   source = "./modules/cloudfront-distribution"
 
   domain_name = "${var.domain_name}"
-  bucket_regional_domain_name = "${module.bucket.bucket_regional_domain_name}"
+  bucket_domain_name = "${module.bucket.bucket_domain_name}"
   env = "${var.env}"
   additional_domains = "${var.additional_domains}"
   cert_arn = "${module.certificate.cert_arn}"

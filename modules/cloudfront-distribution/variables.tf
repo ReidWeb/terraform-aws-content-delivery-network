@@ -23,7 +23,7 @@ variable "domain_name" {
   default = ""
 }
 
-variable "bucket_regional_domain_name" {
+variable "bucket_domain_name" {
   description = "Website endpoint for S3 bucket to be used in origin"
   default = ""
 }
