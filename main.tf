@@ -69,22 +69,15 @@ module "bucket_iam_policy" {
   cloudfront_origin_iam_arn = "${module.cloudfront_distribution.cloudfront_origin_iam_arn}"
 }
 
-//
-//module "networking" {
-//  source = "./modules/networking"
-//
-//  domain_name = "${var.domain_name}"
-//  additional_domains = "${var.additional_domains}"
-//  route53_zone_name = "${var.route53_zone_name}"
-//  env = "${var.env}"
-//  bucket_regional_domain_name = "${module.storage.bucket_regional_domain}"
-//  paths_lambda_name = "${module.compute.paths_lambda_name}"
-//  headers_lambda_name = "${module.compute.headers_lambda_name}"
-//}
-//
-//module "security" {
-//  source = "./modules/security"
-//
-//  domain_name = "${var.domain_name}"
-//  cloudfront_origin_iam_arn = "${module.networking.cloudfront_origin_iam_arn}"
-//}
+# ---------------------------------------------------------------------------------------------------------------------
+# CREATE ROUTE 53 RECORDS
+# ---------------------------------------------------------------------------------------------------------------------
+module "route_53_records" {
+  source = "./modules/route-53-records"
+
+  additional_domains = "${var.additional_domains}"
+  route53_zone_name = "${var.route53_zone_name}"
+  cloudfront_domain = "${module.cloudfront_distribution.cloudfront_domain}"
+  domain_name = "${var.domain_name}"
+  cloudfront_hosted_zone_id = "${module.cloudfront_distribution.cloudfront_dist_zone_id}"
+}
