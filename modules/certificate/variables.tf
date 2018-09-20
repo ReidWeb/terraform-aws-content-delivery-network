@@ -9,6 +9,19 @@ variable "domain_name" {
   description = "Primary domain for this distribution. Be aware that A & AAAA records will be created in Route53 for this with target of your CloudFront distribution. If not provided, no certificate will be created."
 }
 
+variable "profile" {
+  description = "Profile to use - required because we have to do some fiddling with the provider object to create certs in the right region."
+}
+
+variable "shared_credentials_file" {
+  description = "Shared credentials file to use - required because we have to do some fiddling with the provider object to create certs in the right region."
+}
+
+variable "region" {
+  description = "Shared credentials file to use - required because we have to do some fiddling with the provider object to create certs in the right region."
+  default = "us-east-1"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL INPUTS
 # ---------------------------------------------------------------------------------------------------------------------

@@ -7,6 +7,8 @@ resource "aws_cloudfront_origin_access_identity" "orig_access_ident" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_cloudfront_distribution" "dist_with_domain_and_lambdas" {
 
+  provider = "aws.primary"
+
   # Only provision if proivion_lambdas is not false, and domain_name is not an empty strings
   count = "${var.provision_lambdas != "false" ? var.domain_name  !=  "" ? 1 : 0 : 0}"
 

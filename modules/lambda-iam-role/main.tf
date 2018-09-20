@@ -33,6 +33,9 @@ data "aws_iam_policy_document" "lambdaPolicy" {
 # We now need to create a role that can be used with the above policy
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_iam_role" "main" {
+
+  provider = "aws.primary"
+
   name = "${local.short_lambda_base_name}-${data.aws_region.current.name}-${var.env}"
   description = "Role permitting Lambda functions to be invoked from Lambda or Lambda@Edge"
   assume_role_policy = "${data.aws_iam_policy_document.lambdaPolicy.json}"
@@ -59,6 +62,9 @@ data "template_file" "log_policy_template" {
 # CREATE POLICY IN IAM WITH ABOVE DOCUMENT
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_iam_policy" "log_policy" {
+
+  provider = "aws.primary"
+
   name        = "${var.lambda_base_name_with_env}-log-pol"
   path        = "/"
   description = "Policy ${local.usable_chars_for_domain} permitting ${var.domain_name} lambdas to log to CloudWatch"
@@ -73,6 +79,9 @@ resource "aws_iam_policy" "log_policy" {
 # ATTACH THE ABOVE POLICY TO ROLE WE CREATED
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_iam_role_policy_attachment" "logging-attach" {
+
+  provider = "aws.primary"
+
   role       = "${aws_iam_role.main.0.name}"
   policy_arn = "${aws_iam_policy.log_policy.0.arn}"
 

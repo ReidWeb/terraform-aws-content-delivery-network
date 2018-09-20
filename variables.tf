@@ -5,6 +5,19 @@ variable "env" {
   description = "Deployment environment of application, will be included in resource names, and tags. e.g. 'dev'"
 }
 
+variable "profile" {
+  description = "Profile to use - required because we have to do some fiddling with the provider object to create certs in the right region."
+}
+
+variable "shared_credentials_file" {
+  description = "Shared credentials file to use - required because we have to do some fiddling with the provider object to create certs in the right region."
+}
+
+variable "region" {
+  description = "Shared credentials file to use - required because we have to do some fiddling with the provider object to create certs in the right region."
+  default = "us-east-1"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL INPUTS
 # ---------------------------------------------------------------------------------------------------------------------

@@ -6,6 +6,7 @@
 
 resource "aws_s3_bucket" "bucket_with_www" {
 
+  provider = "aws.primary"
   # If domain_name is empty, will get run 1 times
   count = "${var.domain_name != "" ? 1 : 0}"
 
@@ -24,6 +25,8 @@ resource "aws_s3_bucket" "bucket_with_www" {
 }
 
 resource "aws_s3_bucket" "bucket_without_www" {
+
+  provider = "aws.primary"
 
   # If domain_name is empty, will get run 1 times
   count = "${var.domain_name == "" ? 1 : 0}"

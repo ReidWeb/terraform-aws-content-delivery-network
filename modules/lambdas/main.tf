@@ -23,6 +23,9 @@ module "lambda_iam_role" {
 # CREATE THE HEADERS LAMBDA
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "headersLambda" {
+
+  provider = "aws.primary"
+
   function_name = "${local.headers_lambda_name}"
 
   filename = "${"${path.module}/headers.zip"}"
@@ -48,6 +51,9 @@ resource "aws_lambda_function" "headersLambda" {
 # CREATE THE PATHS LAMBDA
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "pathsLambda" {
+
+  provider = "aws.primary"
+
   function_name = "${local.paths_lambda_name}"
 
   filename = "${"${path.module}/paths.zip"}"

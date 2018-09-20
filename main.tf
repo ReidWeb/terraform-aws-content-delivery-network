@@ -8,7 +8,12 @@ terraform {
   required_version = ">= 0.9.3, != 0.9.5"
 }
 
-data "aws_region" "current" {}
+provider "aws" {
+  alias = "primary"
+  region = "${var.region}"
+  profile = "${var.profile}"
+  shared_credentials_file = "${var.shared_credentials_file}"
+}
 
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE LAMBDAS (IF REQUIRED)
@@ -18,7 +23,7 @@ module "lambdas" {
 
   domain_name = "${var.domain_name}"
   env = "${var.env}"
-  provision_lambdas = "${data.aws_region.current.name == "us-east-1" ? var.provision_lambdas : "false"}"
+  provision_lambdas = "${var.region == "us-east-1" ? var.provision_lambdas : "false"}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -40,6 +45,8 @@ module "certificate" {
   domain_name = "${var.domain_name}"
   env = "${var.env}"
   additional_domains = "${var.additional_domains}"
+  profile = "${var.profile}"
+  shared_credentials_file = "${var.shared_credentials_file}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -57,7 +64,7 @@ module "cloudfront_distribution" {
   paths_lambda_unqualified_arn = "${module.lambdas.paths_lambda_unqualified_arn}"
   headers_lambda_version = "${module.lambdas.headers_lambda_version}"
   paths_lambda_version = "${module.lambdas.paths_lambda_version}"
-  provision_lambdas = "${var.provision_lambdas}"
+  provision_lambdas = "${var.region == "us-east-1" ? var.provision_lambdas : "false"}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
