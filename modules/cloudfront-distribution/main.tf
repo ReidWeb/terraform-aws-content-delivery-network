@@ -53,12 +53,12 @@ resource "aws_cloudfront_distribution" "dist_with_domain_and_lambdas" {
 
     lambda_function_association {
       event_type = "origin-response"
-      lambda_arn = "${var.headers_lambda_qualified_arn}"
+      lambda_arn = "${var.headers_lambda_unqualified_arn}:${var.headers_lambda_version}"
     }
 
     lambda_function_association {
       event_type = "origin-request"
-      lambda_arn = "${var.paths_lambda_qualified_arn}"
+      lambda_arn = "${var.paths_lambda_unqualified_arn}:${var.paths_lambda_version}"
     }
   }
 
@@ -138,12 +138,12 @@ resource "aws_cloudfront_distribution" "dist_with_lambdas_with_no_custom_domain"
 
         lambda_function_association {
           event_type = "origin-response"
-          lambda_arn = "${var.headers_lambda_qualified_arn}"
+          lambda_arn = "${var.headers_lambda_unqualified_arn}:${var.headers_lambda_version}"
         }
 
         lambda_function_association {
           event_type = "origin-request"
-          lambda_arn = "${var.paths_lambda_qualified_arn}"
+          lambda_arn = "${var.paths_lambda_unqualified_arn}:${var.paths_lambda_version}"
         }
   }
 

@@ -1,10 +1,10 @@
 output "headers_lambda_qualified_arn," {
-  value = "${module.lambdas.headers_lambda_qualified_arn}"
+  value = "${module.lambdas.headers_lambda_unqualified_arn}"
   description = "Qualified ARN of headers Lambda"
 }
 
 output "paths_lambda_qualified_arn," {
-  value = "${module.lambdas.paths_lambda_qualified_arn}"
+  value = "${module.lambdas.paths_lambda_unqualified_arn}"
   description = "Qualified ARN of paths Lambda"
 }
 

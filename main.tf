@@ -53,8 +53,10 @@ module "cloudfront_distribution" {
   env = "${var.env}"
   additional_domains = "${var.additional_domains}"
   cert_arn = "${module.certificate.cert_arn}"
-  headers_lambda_qualified_arn = "${module.lambdas.headers_lambda_qualified_arn}"
-  paths_lambda_qualified_arn = "${module.lambdas.paths_lambda_qualified_arn}"
+  headers_lambda_unqualified_arn = "${module.lambdas.headers_lambda_unqualified_arn}"
+  paths_lambda_unqualified_arn = "${module.lambdas.paths_lambda_unqualified_arn}"
+  headers_lambda_version = "${module.lambdas.headers_lambda_version}"
+  paths_lambda_version = "${module.lambdas.paths_lambda_version}"
   provision_lambdas = "${var.provision_lambdas}"
 }
 

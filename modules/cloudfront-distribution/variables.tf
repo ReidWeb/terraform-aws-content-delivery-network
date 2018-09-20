@@ -34,12 +34,22 @@ variable "additional_domains" {
   default = []
 }
 
-variable "paths_lambda_qualified_arn" {
-  description = "Qualified ARN for paths lambda"
+variable "paths_lambda_unqualified_arn" {
+  description = "UnQualified ARN for paths lambda"
   default = ""
 }
 
-variable "headers_lambda_qualified_arn" {
-  description = "Qualified ARN for headers lambda"
+variable "headers_lambda_unqualified_arn" {
+  description = "UnQualified ARN for headers lambda"
+  default = ""
+}
+
+variable "paths_lambda_version" {
+  description = "Version of paths lambda"
+  default = ""
+}
+
+variable "headers_lambda_version" {
+  description = "Version of headers lambda"
   default = ""
 }

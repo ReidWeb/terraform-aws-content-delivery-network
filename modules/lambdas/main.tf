@@ -68,26 +68,3 @@ resource "aws_lambda_function" "pathsLambda" {
     Environment = "${var.env}"
   }
 }
-
-# ---------------------------------------------------------------------------------------------------------------------
-# CREATE LAMBDA ALIASES/VERSIONS
-# ---------------------------------------------------------------------------------------------------------------------
-resource "aws_lambda_alias" "headersLambdaAlias" {
-  name             = "STABLE"
-  function_name    = "${aws_lambda_function.headersLambda.arn}"
-  function_version = "${aws_lambda_function.headersLambda.version}"
-
-
-  # If provision_lambdas is false, will get run 0 times
-  count = "${var.provision_lambdas != "false" ? 1 : 0}"
-}
-
-resource "aws_lambda_alias" "pathsLambdaAlias" {
-  name             = "STABLE"
-  function_name    = "${aws_lambda_function.pathsLambda.arn}"
-  function_version = "${aws_lambda_function.pathsLambda.version}"
-
-  # If provision_lambdas is false, will get run 0 times
-  count = "${var.provision_lambdas != "false" ? 1 : 0}"
-}
-
