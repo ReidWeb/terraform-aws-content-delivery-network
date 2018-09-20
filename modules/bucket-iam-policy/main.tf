@@ -21,9 +21,8 @@ data "aws_s3_bucket" "selected" {
 # ---------------------------------------------------------------------------------------------------------------------
 # APPLY POLICY (AS INLINE POLICY) TO EXISTING S3 BUCKET
 # ---------------------------------------------------------------------------------------------------------------------
-resource "aws_s3_bucket" "main" {
+resource "aws_s3_bucket_policy" "main" {
   provider = "aws.primary"
-  region = "${data.aws_s3_bucket.selected.region}"
   bucket = "${var.bucket_id}"
   policy = "${data.template_file.bucket_policy.rendered}"
 }
