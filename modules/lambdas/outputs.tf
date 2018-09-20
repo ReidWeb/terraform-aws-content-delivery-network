@@ -1,10 +1,10 @@
 output "headers_lambda_qualified_arn" {
-  value = "${element(concat("${aws_lambda_function.headersLambda.arn}:${aws_lambda_function.function.headersLambda.version}", list("")),0)}"
+  value = "${element(concat("${aws_lambda_function.headersLambda.0.arn}:${aws_lambda_function.function.headersLambda.0.version}", list("")),0)}"
   description = "Qualified ARN of headers Lambda"
 }
 
 output "paths_lambda_qualified_arn" {
-  value = "${element(concat("${aws_lambda_function.pathsLambda.arn}:${aws_lambda_function.function.pathsLambda.version}", list("")),0)}"
+  value = "${element(concat("${aws_lambda_function.pathsLambda.0.arn}:${aws_lambda_function.function.pathsLambda.0.version}", list("")),0)}"
   description = "Qualified ARN of paths Lambda"
 }
 
