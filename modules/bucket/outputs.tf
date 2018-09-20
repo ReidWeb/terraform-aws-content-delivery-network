@@ -12,6 +12,7 @@ output "bucket_id" {
                         list("")
                       ),
                       0)}"
+
   description = "ID for Origin S3 Bucket"
 }
 
@@ -27,6 +28,7 @@ output "bucket_arn" {
                         list("")
                       ),
                       0)}"
+
   description = "ARN for Origin S3 Bucket"
 }
 
@@ -42,5 +44,6 @@ output "bucket_domain_name" {
                         list("")
                       ),
                       0)}"
+
   description = "Domain name for Origin S3 Bucket"
 }

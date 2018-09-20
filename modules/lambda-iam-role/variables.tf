@@ -24,10 +24,10 @@ variable "env" {
 
 variable "domain_name" {
   description = "Primary domain for this distribution."
-  default = "cf-dist"
+  default     = "cf-dist"
 }
 
 variable "provision_lambdas" {
   description = "Whether to provision lambdas"
-  default = "true"
+  default     = "true"
 }

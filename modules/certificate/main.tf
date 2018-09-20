@@ -1,9 +1,8 @@
-
 // Over write user provided region - CloudFront can only source certificates from us-east-1 ACM
 provider "aws" {
-  alias = "virginia"
-  region = "us-east-1"
-  profile = "${var.profile}"
+  alias                   = "virginia"
+  region                  = "us-east-1"
+  profile                 = "${var.profile}"
   shared_credentials_file = "${var.shared_credentials_file}"
 }
 
@@ -11,7 +10,6 @@ provider "aws" {
 # CREATE THE CERTIFICATE
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_acm_certificate" "certificate" {
-
   provider = "aws.virginia"
 
   # If domain_name is absent, will get run 0 times
@@ -29,7 +27,6 @@ resource "aws_acm_certificate" "certificate" {
   }
 }
 
-
 # ---------------------------------------------------------------------------------------------------------------------
 # WAIT FOR CERTIFICATE TO COMPLETE VALIDATION
 # ---------------------------------------------------------------------------------------------------------------------
@@ -41,4 +38,3 @@ resource "aws_acm_certificate_validation" "certificate" {
 
   certificate_arn = "${aws_acm_certificate.certificate.0.arn}"
 }
-

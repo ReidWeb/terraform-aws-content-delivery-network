@@ -9,9 +9,9 @@ terraform {
 }
 
 provider "aws" {
-  alias = "primary"
-  region = "${var.region}"
-  profile = "${var.profile}"
+  alias                   = "primary"
+  region                  = "${var.region}"
+  profile                 = "${var.profile}"
   shared_credentials_file = "${var.shared_credentials_file}"
 }
 
@@ -21,8 +21,8 @@ provider "aws" {
 module "lambdas" {
   source = "./modules/lambdas"
 
-  domain_name = "${var.domain_name}"
-  env = "${var.env}"
+  domain_name       = "${var.domain_name}"
+  env               = "${var.env}"
   provision_lambdas = "${var.region == "us-east-1" ? var.provision_lambdas : "false"}"
 }
 
@@ -33,7 +33,7 @@ module "bucket" {
   source = "./modules/bucket"
 
   domain_name = "${var.domain_name}"
-  env = "${var.env}"
+  env         = "${var.env}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -42,10 +42,10 @@ module "bucket" {
 module "certificate" {
   source = "./modules/certificate"
 
-  domain_name = "${var.domain_name}"
-  env = "${var.env}"
-  additional_domains = "${var.additional_domains}"
-  profile = "${var.profile}"
+  domain_name             = "${var.domain_name}"
+  env                     = "${var.env}"
+  additional_domains      = "${var.additional_domains}"
+  profile                 = "${var.profile}"
   shared_credentials_file = "${var.shared_credentials_file}"
 }
 
@@ -55,16 +55,16 @@ module "certificate" {
 module "cloudfront_distribution" {
   source = "./modules/cloudfront-distribution"
 
-  domain_name = "${var.domain_name}"
-  bucket_domain_name = "${module.bucket.bucket_domain_name}"
-  env = "${var.env}"
-  additional_domains = "${var.additional_domains}"
-  cert_arn = "${module.certificate.cert_arn}"
+  domain_name                    = "${var.domain_name}"
+  bucket_domain_name             = "${module.bucket.bucket_domain_name}"
+  env                            = "${var.env}"
+  additional_domains             = "${var.additional_domains}"
+  cert_arn                       = "${module.certificate.cert_arn}"
   headers_lambda_unqualified_arn = "${module.lambdas.headers_lambda_unqualified_arn}"
-  paths_lambda_unqualified_arn = "${module.lambdas.paths_lambda_unqualified_arn}"
-  headers_lambda_version = "${module.lambdas.headers_lambda_version}"
-  paths_lambda_version = "${module.lambdas.paths_lambda_version}"
-  provision_lambdas = "${var.region == "us-east-1" ? var.provision_lambdas : "false"}"
+  paths_lambda_unqualified_arn   = "${module.lambdas.paths_lambda_unqualified_arn}"
+  headers_lambda_version         = "${module.lambdas.headers_lambda_version}"
+  paths_lambda_version           = "${module.lambdas.paths_lambda_version}"
+  provision_lambdas              = "${var.region == "us-east-1" ? var.provision_lambdas : "false"}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -73,8 +73,8 @@ module "cloudfront_distribution" {
 module "bucket_iam_policy" {
   source = "./modules/bucket-iam-policy"
 
-  bucket_arn = "${module.bucket.bucket_arn}"
-  bucket_id = "${module.bucket.bucket_id}"
+  bucket_arn                = "${module.bucket.bucket_arn}"
+  bucket_id                 = "${module.bucket.bucket_id}"
   cloudfront_origin_iam_arn = "${module.cloudfront_distribution.cloudfront_origin_iam_arn}"
 }
 
@@ -84,9 +84,9 @@ module "bucket_iam_policy" {
 module "route_53_records" {
   source = "./modules/route-53-records"
 
-  additional_domains = "${var.additional_domains}"
-  route53_zone_name = "${var.route53_zone_name}"
-  cloudfront_domain = "${module.cloudfront_distribution.cloudfront_domain}"
-  domain_name = "${var.domain_name}"
+  additional_domains        = "${var.additional_domains}"
+  route53_zone_name         = "${var.route53_zone_name}"
+  cloudfront_domain         = "${module.cloudfront_distribution.cloudfront_domain}"
+  domain_name               = "${var.domain_name}"
   cloudfront_hosted_zone_id = "${module.cloudfront_distribution.cloudfront_dist_zone_id}"
 }

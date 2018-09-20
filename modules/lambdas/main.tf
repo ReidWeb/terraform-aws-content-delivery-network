@@ -1,36 +1,35 @@
 locals {
-  underscored_domain = "${replace(var.domain_name, ".", "_")}"
-  lambda_base_name =  "cloudFront-${local.underscored_domain}"
+  underscored_domain        = "${replace(var.domain_name, ".", "_")}"
+  lambda_base_name          = "cloudFront-${local.underscored_domain}"
   lambda_base_name_with_env = "${local.lambda_base_name}-${var.env}"
-  headers_lambda_name = "${local.lambda_base_name}-headers-${var.env}"
-  paths_lambda_name = "${local.lambda_base_name}-paths-${var.env}"
+  headers_lambda_name       = "${local.lambda_base_name}-headers-${var.env}"
+  paths_lambda_name         = "${local.lambda_base_name}-paths-${var.env}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE THE LAMBDA ROLE
 # ---------------------------------------------------------------------------------------------------------------------
 module "lambda_iam_role" {
-  source = "../lambda-iam-role"
+  source                    = "../lambda-iam-role"
   lambda_base_name_with_env = "${local.lambda_base_name_with_env}"
-  paths_lambda_name = "${local.paths_lambda_name}"
-  headers_lambda_name = "${local.headers_lambda_name}"
-  provision_lambdas = "${var.provision_lambdas}"
-  env = "${var.env}"
-  domain_name = "${var.domain_name}"
+  paths_lambda_name         = "${local.paths_lambda_name}"
+  headers_lambda_name       = "${local.headers_lambda_name}"
+  provision_lambdas         = "${var.provision_lambdas}"
+  env                       = "${var.env}"
+  domain_name               = "${var.domain_name}"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # CREATE THE HEADERS LAMBDA
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "headersLambda" {
-
   provider = "aws.primary"
 
   function_name = "${local.headers_lambda_name}"
 
-  filename = "${"${path.module}/headers.zip"}"
-  handler = "headers.handler"
-  runtime = "nodejs8.10"
+  filename    = "${"${path.module}/headers.zip"}"
+  handler     = "headers.handler"
+  runtime     = "nodejs8.10"
   description = "Lambda function to process events when CloudFront receives a response from the origin to add headers"
 
   publish = true
@@ -51,14 +50,13 @@ resource "aws_lambda_function" "headersLambda" {
 # CREATE THE PATHS LAMBDA
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "pathsLambda" {
-
   provider = "aws.primary"
 
   function_name = "${local.paths_lambda_name}"
 
-  filename = "${"${path.module}/paths.zip"}"
-  handler = "paths.handler"
-  runtime = "nodejs8.10"
+  filename    = "${"${path.module}/paths.zip"}"
+  handler     = "paths.handler"
+  runtime     = "nodejs8.10"
   description = "Lambda function to process events when CloudFront requests a response from Cloudfront in order to redirect"
 
   role = "${module.lambda_iam_role.role_arn}"

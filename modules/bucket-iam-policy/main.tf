@@ -7,7 +7,7 @@ data "template_file" "bucket_policy" {
 
   vars {
     bucket_arn = "${var.bucket_arn}"
-    iam_arn= "${var.cloudfront_origin_iam_arn}"
+    iam_arn    = "${var.cloudfront_origin_iam_arn}"
   }
 }
 
@@ -23,6 +23,6 @@ data "aws_s3_bucket" "selected" {
 # ---------------------------------------------------------------------------------------------------------------------
 resource "aws_s3_bucket_policy" "main" {
   provider = "aws.primary"
-  bucket = "${var.bucket_id}"
-  policy = "${data.template_file.bucket_policy.rendered}"
+  bucket   = "${var.bucket_id}"
+  policy   = "${data.template_file.bucket_policy.rendered}"
 }
