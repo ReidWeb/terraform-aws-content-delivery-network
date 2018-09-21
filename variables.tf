@@ -37,10 +37,10 @@ variable "region" {
 
 variable "shared_credentials_file" {
   description = "Shared credentials file to use - required because we have to do some fiddling with the provider object to create certs in the right region."
-  default = "~/.aws/credentials"
+  default     = "~/.aws/credentials"
 }
 
 variable "profile" {
   description = "Profile to use - required because we have to do some fiddling with the provider object to create certs in the right region."
-  default = "default"
+  default     = "default"
 }

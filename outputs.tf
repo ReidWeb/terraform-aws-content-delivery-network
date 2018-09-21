@@ -33,6 +33,11 @@ output "certificate_arn" {
   description = "ARN of certificate provisioned in ACM"
 }
 
+output "cloudfront_id" {
+  value       = "${module.cloudfront_distribution.cloudfront_dist_id}"
+  description = "ID of CloudFront Distribution"
+}
+
 output "cloudfront_dist_zone_id" {
   value       = "${module.cloudfront_distribution.cloudfront_dist_zone_id}"
   description = "Zone ID of CloudFront Distribution"

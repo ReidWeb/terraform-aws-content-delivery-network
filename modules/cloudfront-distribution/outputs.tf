@@ -36,6 +36,25 @@ output "cloudfront_domain" {
   description = "[x].cloudfront.net domain name of CloudFront distribution"
 }
 
+output "cloudfront_dist_id" {
+  value = "${element(
+                      concat(
+                            compact(
+                                    concat(
+                                      aws_cloudfront_distribution.dist_with_custom_domain_with_no_lambdas.*.id,
+                                      aws_cloudfront_distribution.dist_with_domain_and_lambdas.*.id,
+                                      aws_cloudfront_distribution.dist_with_lambdas_with_no_custom_domain.*.id,
+                                      aws_cloudfront_distribution.dist_with_no_custom_domain_with_no_lambdas.*.id
+                                    )
+                                   ),
+                                   list("")
+                            ),
+                      0
+                    )}"
+
+  description = "ID of CloudFront distribution"
+}
+
 output "cloudfront_origin_iam_arn" {
   value       = "${aws_cloudfront_origin_access_identity.orig_access_ident.iam_arn}"
   description = "CloudFront origin ARN"

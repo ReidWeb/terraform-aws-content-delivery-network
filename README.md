@@ -55,6 +55,7 @@ Be sure to read the [inputs](https://registry.terraform.io/modules/ReidWeb/conte
 |`bucket_domain_name`| Domain name for Origin S3 Bucket |
 |`certificate_id`| ID of certfificate provisioned in ACM |
 |`certificate_arn`| ARN of certificate provisioned in ACM |
+|`cloudfront_dist_id`| ID of CloudFront Distribution |
 |`cloudfront_dist_zone_id`| Zone ID of CloudFront Distribution |
 |`cloudfront_domain`| .cloudfront.net domain of Distribution |
 |`cloudfront_origin_iam_arn`| CloudFront Origin Acess Identity |
